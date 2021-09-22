@@ -1,0 +1,86 @@
+openapi: 3.0.0
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/HighCohesion/SDF/1.0.0
+info:
+  description: HighCohesion SDF API
+  version: "1.0.0"
+  title: HighCohesion SDF API
+  contact:
+    email: admin@highcohesion.com
+tags:
+  - name: Source
+    description: Operations related to Source Functions
+  - name: Destination
+    description: Operations related to Destination
+paths:
+  /source:
+    post:
+      tags:
+        - Source
+      summary: Run a Source Function
+      operationId: runSource
+      description: Run a Source Function
+      responses:
+        '200':
+          description: Function finished sucessfully
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        description: Inventory item to add
+  /destination:
+    post:
+      tags:
+        - Destination
+      summary: Run a Source Function
+      operationId: runDestination
+      description: Run a Source Function
+      responses:
+        '200':
+          description: Function finished sucessfully
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        description: Inventory item to add
+components:
+  schemas:
+    Configuration:
+      type: object
+      properties:
+        system:
+          type: string
+          example: Shopify
+        name:
+          type: string
+          example: GetOrder
+        key:
+          $ref: '#/components/schemas/Key'
+        settings:
+          $ref: '#/components/schemas/Settings'
+    Settings:
+      description: Optional Settings that you can pass to the function
+      type: object
+    Key:
+      type: object
+      properties:
+        id:
+          description: This is the id of the Key in HighCohesion
+          type: string
+          format: uuid
+          example: d2fd52d0-161a-11ec-b020-cb7a52b02bd5
+
+
+
