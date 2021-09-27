@@ -67,10 +67,6 @@
         "hicoh/shopify-get-product": {
             "type": "path",
             "url": "../functions/Shopify/GetProduct"
-        },
-        "test/test-test": {
-            "type": "path",
-            "url": "../functions/Test/Test"
         }
     },
     "extra": {
