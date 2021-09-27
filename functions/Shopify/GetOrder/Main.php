@@ -10,9 +10,9 @@ class Main
     public static function run(ContextRequest $contextRequest): array
     {
         $config = array(
-            'ShopUrl' => 'simple-street-supplies.myshopify.com',
-            'ApiKey' => '2acbf9b07aaddcd26f99a57a08928a87',
-            'Password' => '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',
+            'ShopUrl' => $contextRequest->getFunctionConfiguration()->getKey()->getContentByKey('ShopUrl'),
+            'ApiKey' => $contextRequest->getFunctionConfiguration()->getKey()->getContentByKey('ApiKey'),
+            'Password' => $contextRequest->getFunctionConfiguration()->getKey()->getContentByKey('Password'),
             'Curl' => array(
                 CURLOPT_TIMEOUT => 10,
                 CURLOPT_FOLLOWLOCATION => true
