@@ -1,6 +1,6 @@
 <?php
 
-namespace Functions\{System}\{Function};
+namespace Functions\{SYSTEM_NAME}\{FUNCTION_NAME};
 
 use App\Request\ContextRequest;
 

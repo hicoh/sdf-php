@@ -81,8 +81,8 @@ class CreateFunction extends Command
     private static function initMain(string $system, string $function): void
     {
         $main = file_get_contents(Functions::getRootDir().'/templates/Main.php') ?: '';
-        $main = str_replace('{System}', $system, $main);
-        $main = str_replace('{Function}', $function, $main);
+        $main = str_replace('{SYSTEM_NAME}', $system, $main);
+        $main = str_replace('{FUNCTION_NAME}', $function, $main);
         file_put_contents(Functions::getRootDir().'/'.$system.'/'.$function.'/Main.php', $main);
     }
 
