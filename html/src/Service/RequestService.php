@@ -4,6 +4,7 @@ namespace App\Service;
 
 use App\Factory\FunctionInit;
 use App\Request\ContextRequest;
+use App\Request\Payload;
 
 class RequestService
 {
@@ -21,9 +22,10 @@ class RequestService
     {
         if ($event = $eventManagerService->getEvent($eventId)) {
             $eventPayloadUrl = $event->getPayloadOutUrl();
-            $contextRequest->getEvent()->getPayload()->setUrl($eventPayloadUrl);
+            $payload = (new Payload())->setUrl($eventPayloadUrl);
             $content = json_decode(file_get_contents($eventPayloadUrl) ?: '', true);
-            $contextRequest->getEvent()->getPayload()->setContent($content);
+            $payload->setContent($content);
+            $contextRequest->getEvent()->setPayload($payload);
         } else {
             throw new \Exception('Error fetching Event with ID: '.$eventId);
         }

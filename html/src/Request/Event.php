@@ -6,7 +6,7 @@ use App\Request\ParamConverter\RequestBodyConverter;
 
 class Event implements RequestInterface
 {
-    public function __construct(private ?string $id = null, private Payload $payload)
+    public function __construct(private ?string $id = null, private ?Payload $payload = null)
     {
     }
 
@@ -20,7 +20,14 @@ class Event implements RequestInterface
         return $this->id;
     }
 
-    public function getPayload(): Payload
+    public function setPayload(?Payload $payload): self
+    {
+        $this->payload = $payload;
+
+        return $this;
+    }
+
+    public function getPayload(): ?Payload
     {
         return $this->payload;
     }
