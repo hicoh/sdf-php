@@ -9,10 +9,10 @@ use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class CreatePackage extends Command
+class CreateFunction extends Command
 {
     public const PROJECT_DIR = __DIR__.'/../../';
-    protected static $defaultName = 'app:create-package';
+    protected static $defaultName = 'app:create-function';
 
     protected function configure(): void
     {

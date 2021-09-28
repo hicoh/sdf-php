@@ -37,7 +37,7 @@ You can see the list of job in our Control Panel.
 - Destination functions pull data from HighCohesion and send it to the destination system. You can specify an EventId or pass a custom json object.
 ### Function Creation
 To create a new function, you need to run the following command.
-`make create-package`
+`make create-function`
 This command will generate the skeleton inside the **functions** folder.
 The function structure will look like:
 

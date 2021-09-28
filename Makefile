@@ -67,8 +67,8 @@ composer-dumpautoload:
 	$(PHPEXEC) composer dumpautoload
 
 ## Package Commands
-create-package: ### Create a new Package
-	$(PHPEXEC) php bin/console app:create-package
+create-function: ### Create a new Package
+	$(PHPEXEC) php bin/console app:create-function
 	make composer-install
 	make composer-dumpautoload
 
