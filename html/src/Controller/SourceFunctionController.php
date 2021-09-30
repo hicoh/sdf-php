@@ -20,14 +20,14 @@ class SourceFunctionController extends AbstractController
      */
     public function runSource(SourceRequest $sourceRequest): JsonResponse
     {
-        $result = RequestService::runFunction($sourceRequest);
+        $functionResponse = RequestService::runFunction($sourceRequest);
         if ($sourceRequest->getStream() && $streamId = $sourceRequest->getStream()->getId()) {
             $this->eventManagerService->createJob(
                 $streamId,
-                $result
+                $functionResponse->getData()
             );
         }
 
-        return $this->json($result);
+        return $this->json($functionResponse);
     }
 }

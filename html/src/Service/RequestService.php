@@ -5,13 +5,11 @@ namespace App\Service;
 use App\Factory\FunctionInit;
 use App\Request\ContextRequest;
 use App\Request\Payload;
+use App\Response\FunctionResponse;
 
 class RequestService
 {
-    /**
-     * @return array<object>|null
-     */
-    public static function runFunction(ContextRequest $contextRequest): ?array
+    public static function runFunction(ContextRequest $contextRequest): FunctionResponse
     {
         $class = self::getClassNameSpace($contextRequest);
 
@@ -23,8 +21,12 @@ class RequestService
         if ($event = $eventManagerService->getEvent($eventId)) {
             $eventPayloadUrl = $event->getPayloadOutUrl();
             $payload = (new Payload())->setUrl($eventPayloadUrl);
-            $content = json_decode(file_get_contents($eventPayloadUrl) ?: '', true);
-            $payload->setContent($content);
+            try {
+                $contentArray = json_decode(file_get_contents($eventPayloadUrl) ?: '', true);
+            } catch (\Exception $e) {
+                $contentArray = [];
+            }
+            $payload->setContent($contentArray);
             $contextRequest->getEvent()->setPayload($payload);
         } else {
             throw new \Exception('Error fetching Event with ID: '.$eventId);

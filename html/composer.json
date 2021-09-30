@@ -67,6 +67,10 @@
         "hicoh/shopify-get-product": {
             "type": "path",
             "url": "../functions/Shopify/GetProduct"
+        },
+        "high-cohesion/s3-post-file": {
+            "type": "path",
+            "url": "../functions/S3/PostFile"
         }
     },
     "extra": {

@@ -8,7 +8,10 @@ use HiCo\EventManagerClient\Configuration;
 use HiCo\EventManagerClient\Model\AsyncResponse;
 use HiCo\EventManagerClient\Model\Event;
 use HiCo\EventManagerClient\Model\JobRequest;
+use HiCo\EventManagerClient\Model\UpdateEventEntityRequest;
+use HiCo\EventManagerClient\Model\UpdateEventRequest;
 use HiCo\EventManagerClient\Service\EventApi;
+use HiCo\EventManagerClient\Service\EventEntityApi;
 use HiCo\EventManagerClient\Service\JobApi;
 
 class EventManagerService
@@ -45,5 +48,28 @@ class EventManagerService
         }
 
         return null;
+    }
+
+    public function patchEvent(?UpdateEventRequest $updateEventRequest): void
+    {
+        if ($updateEventRequest) {
+            $apiInstance = new EventApi($this->client, self::$config);
+            $apiInstance->updateEvent($updateEventRequest);
+        }
+    }
+
+    /**
+     * @param UpdateEventEntityRequest[]|null $updateEventEntities
+     *
+     * @throws ApiException
+     */
+    public function patchEventEntities(?array $updateEventEntities): void
+    {
+        if ($updateEventEntities) {
+            $apiInstance = new EventEntityApi($this->client, self::$config);
+            foreach ($updateEventEntities as $updateEventEntity) {
+                $apiInstance->updateEventEntity($updateEventEntity);
+            }
+        }
     }
 }
