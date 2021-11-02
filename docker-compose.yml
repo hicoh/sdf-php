@@ -1,0 +1,43 @@
+version: "3.5"
+
+services:
+  app:
+    build:
+      context: "./docker/${IMAGE}"
+      target: builder
+    volumes:
+      - code:/var/www/html/
+      - functions:/var/www/functions/
+    environment:
+      XDEBUG_CONFIG: "client_host=${XDEBUG_CLIENT_HOST} client_port=${XDEBUG_CLIENT_PORT} idekey=${XDEBUG_IDE_KEY}"
+
+  web:
+    image: nginx:alpine
+    ports:
+      - "8081:80"
+    depends_on: ["app"]
+    volumes:
+      - code:/var/www/html/
+      - functions:/var/www/functions/
+      - logs:/var/log/nginx
+      - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
+
+volumes:
+  code:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/html/
+      o: bind
+  functions:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/functions/
+      o: bind
+  logs:
+    driver: local
+    driver_opts:
+      type: none
+      device: ${PWD}/data/log/
+      o: bind
