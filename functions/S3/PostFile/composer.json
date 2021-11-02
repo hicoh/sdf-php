@@ -1,0 +1,6 @@
+{
+    "name": "high-cohesion/s3-post-file",
+    "version": "1.0.0",
+    "type": "library",
+    "minimum-stability": "beta"
+}

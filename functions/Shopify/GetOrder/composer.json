@@ -1,0 +1,15 @@
+{
+  "name": "hicoh/shopify-get-order",
+  "version": "1.0.0",
+  "description": "Get Order function",
+  "type": "library",
+  "authors": [
+    {
+      "name": "HighCohesion",
+      "email": "admin@highcohesion.com"
+    }
+  ],
+  "require": {
+    "phpclassic/php-shopify": "^1.1"
+  }
+}

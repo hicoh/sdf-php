@@ -1,0 +1,143 @@
+openapi: 3.0.0
+servers:
+  - description: Localhost
+    url: http://0.0.0.0:8081
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/HighCohesion/SDF/1.0.0
+info:
+  description: HighCohesion SDF API
+  version: "1.0.0"
+  title: HighCohesion SDF API
+  contact:
+    email: admin@highcohesion.com
+tags:
+  - name: Source
+    description: Operations related to Source Functions
+  - name: Destination
+    description: Operations related to Destination
+paths:
+  /source:
+    post:
+      tags:
+        - Source
+      summary: Run a Source Function
+      operationId: runSource
+      description: Run a Source Function
+      responses:
+        '200':
+          description: Function finished sucessfully
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        description: Inventory item to add
+  /destination:
+    post:
+      tags:
+        - Destination
+      summary: Run a Destination Function
+      operationId: runDestination
+      description: Run a Destination Function
+      responses:
+        '200':
+          description: Function finished sucessfully
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Configuration'
+        description: Inventory item to add
+components:
+  schemas:
+    Configuration:
+      type: object
+      properties:
+        system:
+          $ref: '#/components/schemas/System'
+        function_configuration:
+          $ref: '#/components/schemas/FunctionConfiguration'
+        stream:
+          $ref: '#/components/schemas/Stream'
+        event:
+          $ref: '#/components/schemas/Event'
+    System:
+      description: The system details
+      type: object
+      required: [name]
+      properties:
+        name:
+          description: The name of your System. This corresponds to the Parent Directory.
+          type: string
+          example: Shopify
+    FunctionConfiguration:
+      description: The function details
+      type: object
+      required: [name]
+      properties:
+        name:
+          description: The name of your function. This corresponds to the Child Directory.
+          type: string
+          example: GetOrder
+        settings:
+          description: Optional Settings that you can pass to the function
+          type: object
+          example:
+            total: 1
+            entity: product
+        key:
+          description: The credential information to access to the Source System
+          type: object
+          properties:
+            id:
+              description: This is the id of the Key in HighCohesion
+              type: string
+              format: uuid
+              example: d2fd52d0-161a-11ec-b020-cb7a52b02bd5
+            content:
+              description: Use the content to pass the key parameters that your function client needs
+              type: object
+              example:
+                host: www.dev-environment.com/v1
+                key: '123-123-123-123'
+    Stream:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          description: The Stream Id. If this value is passed, the API will send / get data to the Stream Id
+          example: d2fd52d0-161a-11ec-b020-cb7a52b02bd5
+    Event:
+      type: object
+      properties:
+        id:
+          description: The event id. Use this field for passing the payload out to your destination function.
+          type: string
+          format: uuid
+          example: 614c62409638ee3d3812387d
+        payload:
+          $ref: '#/components/schemas/Payload'
+    Payload:
+      type: object
+      properties:
+        url:
+          type: string
+          format: url
+          example: https://www.data.com.csv
+        content:
+          type: object
+          example:
+            name: test
+            email: test@gmail.com
+
+
